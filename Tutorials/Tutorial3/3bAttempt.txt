@@ -31,8 +31,8 @@ CREATE TABLE pharmacuticalCompany(
 CREATE TABLE drugs(
 	tradename TEXT PRIMARY KEY,
 	formula TEXT,
-	phar_com_name TEXT
-	FOREIGN KEY (phar_com_name) REFERENCES pharmacuticalCompany(name),
+	phar_com_name TEXT,
+	FOREIGN KEY (phar_com_name) REFERENCES pharmacuticalCompany(name)
 		ON DELETE CASCADE 
 );
 
@@ -84,5 +84,3 @@ CREATE TABLE prescribes(
 	FOREIGN KEY (patient_ssn) REFERENCES patients(ssn),
 	FOREIGN KEY (drug_tradename) REFERENCES drugs(tradename)
 );
-
-	
