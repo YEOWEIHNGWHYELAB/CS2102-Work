@@ -1,4 +1,5 @@
 --Entities
+
 CREATE TABLE patients(
 	ssn INT PRIMARY KEY,
 	name TEXT,
@@ -7,6 +8,7 @@ CREATE TABLE patients(
 );
 
 --INSERT INTO patients VALUES (123456789, 'Ben', 25, 'Tampines St 123');
+--SELECT * FROM patients;
 
 CREATE TABLE doctors(
 	ssn INT PRIMARY KEY,
@@ -23,5 +25,64 @@ CREATE TABLE pharmacies(
 
 CREATE TABLE pharmacuticalCompany(
 	name TEXT PRIMARY KEY,
-	phone INT,
+	phone INT
 );
+
+CREATE TABLE drugs(
+	tradename TEXT PRIMARY KEY,
+	formula TEXT,
+	phar_com_name TEXT
+	FOREIGN KEY (phar_com_name) REFERENCES pharmacuticalCompany(name),
+		ON DELETE CASCADE 
+);
+
+--Relational
+CREATE TABLE makes(
+	phar_com_name TEXT,
+	drug_tradename TEXT,
+	PRIMARY KEY (phar_com_name, drug_tradename),
+	FOREIGN KEY (phar_com_name) REFERENCES pharmacuticalCompany(name),
+	FOREIGN KEY (drug_tradename) REFERENCES drugs(tradename)
+);
+
+CREATE TABLE sells(
+	phar_name TEXT,
+	drug_tradename TEXT,
+	price FLOAT, 
+	PRIMARY KEY (phar_name, drug_tradename),
+	FOREIGN KEY (phar_name) REFERENCES pharmacies(name),
+	FOREIGN KEY (drug_tradename) REFERENCES drugs(tradename)
+);
+
+CREATE TABLE contracts(
+	phar_com_name TEXT,
+	phar_name TEXT,
+	text TEXT,
+	start_date TEXT,
+	end_date TEXT,
+	PRIMARY KEY (phar_com_name, phar_name),
+	FOREIGN KEY (phar_com_name) REFERENCES pharmacuticalCompany(name),
+	FOREIGN KEY (phar_name) REFERENCES pharmacies(name)
+);
+
+CREATE TABLE primaryPhysician(
+	doc_ssn INT,
+	patient_ssn INT,
+	PRIMARY KEY (patient_ssn),
+	FOREIGN KEY (doc_ssn) REFERENCES doctors(ssn),
+	FOREIGN KEY (patient_ssn) REFERENCES patients(ssn)
+);
+
+CREATE TABLE prescribes(
+	doc_ssn INT,
+	patient_ssn INT,
+	drug_tradename TEXT, 
+	date TEXT,
+	quantity INT,
+	PRIMARY KEY (doc_ssn, patient_ssn, drug_tradename),
+	FOREIGN KEY (doc_ssn) REFERENCES doctors(ssn),
+	FOREIGN KEY (patient_ssn) REFERENCES patients(ssn),
+	FOREIGN KEY (drug_tradename) REFERENCES drugs(tradename)
+);
+
+	
