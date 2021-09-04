@@ -1,0 +1,27 @@
+--Entities
+CREATE TABLE patients(
+	ssn INT PRIMARY KEY,
+	name TEXT,
+	age INT,
+	address TEXT
+);
+
+--INSERT INTO patients VALUES (123456789, 'Ben', 25, 'Tampines St 123');
+
+CREATE TABLE doctors(
+	ssn INT PRIMARY KEY,
+	name TEXT,
+	speciality TEXT,
+	years INT
+);
+
+CREATE TABLE pharmacies(
+	name TEXT PRIMARY KEY,
+	address TEXT,
+	phone INT
+);
+
+CREATE TABLE pharmacuticalCompany(
+	name TEXT PRIMARY KEY,
+	phone INT,
+);
