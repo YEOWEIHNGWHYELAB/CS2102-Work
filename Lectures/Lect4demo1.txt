@@ -1,34 +1,35 @@
-Server [localhost]:
-Database [postgres]:
-Port [5432]:
-Username [postgres]:
-Password for user postgres:
-psql (13.3)
-WARNING: Console code page (437) differs from Windows code page (1252)
-         8-bit characters might not work correctly. See psql reference
-         page "Notes for Windows users" for details.
-Type "help" for help.
-
 postgres=# DROP TABLE test
 postgres-# ;
 ERROR:  table "test" does not exist
+
+
 postgres=# CREATE TABLE test (
 postgres(# a INT PRIMARY KEY,
 postgres(# b TEXT,
 postgres(# C FLOAT NOT NULL
 postgres(# );
 CREATE TABLE
+
+
 postgres=# INSERT INTO testVALUES (1, 'Adi', 0);
 ERROR:  syntax error at or near "1"
 LINE 1: INSERT INTO testVALUES (1, 'Adi', 0);
                                 ^
+
+
 postgres=# INSERT INTO test VALUES (1, 'Adi', 0);
 INSERT 0 1
+
+
 postgres=# INSERT INTO test VALUES (1, 'Toga', 0.5);
 ERROR:  duplicate key value violates unique constraint "test_pkey"
 DETAIL:  Key (a)=(1) already exists.
+
+
 postgres=# INSERT INTO test VALUES (2, 'Toga', 0.5);
 INSERT 0 1
+
+
 postgres=# SELECT * FROM test;
  a |  b   |  c
 ---+------+-----

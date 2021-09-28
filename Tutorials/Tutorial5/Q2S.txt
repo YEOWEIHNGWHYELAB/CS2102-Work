@@ -1,0 +1,99 @@
+#---------------------------------------------------------------------------------
+This is a demo on question 2, firstly the TABLE R is created with 3 rows including
+one with a = 10 and there can't be any repeats where a = 10 since a is PRIMARY KEY.
+Then we tested the 2 query statement. In such a case its the same.
+
+Secondly, a = 10 row is removed and the 2 query statement is tested again... You 
+can see the obvious different... 
+#---------------------------------------------------------------------------------
+postgres=# CREATE TABLE R (
+postgres(# a INTEGER PRIMARY KEY,
+postgres(# b INTEGER,
+postgres(# c INTEGER
+postgres(# );
+CREATE TABLE
+
+
+postgres=# INSERT INTO R VALUES (1,2,3), (2,3,4), (10,11,12);
+INSERT 0 3
+
+
+postgres=# SELECT * FROM R;
+ a  | b  | c
+----+----+----
+  1 |  2 |  3
+  2 |  3 |  4
+ 10 | 11 | 12
+(3 rows)
+
+
+postgres=# SELECT COUNT (c)
+postgres-# FROM R
+postgres-# WHERE a = 10;
+ count
+-------
+     1
+(1 row)
+
+
+postgres=# SELECT COUNT (c)
+postgres-# FROM R
+postgres-# WHERE a = 10
+postgres-# GROUP BY a;
+ count
+-------
+     1
+(1 row)
+
+
+postgres=# DELETE FROM R
+postgres-# WHERE a = 10;
+DELETE 1
+postgres=# SELECT * FROM R;
+ a | b | c
+---+---+---
+ 1 | 2 | 3
+ 2 | 3 | 4
+(2 rows)
+
+
+postgres=# SELECT COUNT (c)
+postgres-# FROM R
+postgres-# WHERE a = 10;
+ count
+-------
+     0
+(1 row)
+
+
+postgres=# SELECT COUNT (c)
+postgres-# FROM R
+postgres-# WHERE a = 10
+postgres-# GROUP BY a;
+ count
+-------
+(0 rows)
+
+
+#---------------------------------------------------------------------------------
+Below is an example of showing another difference of the 2 queries when they are
+when we are not using PRIMARY KEY in the WHERE clause.
+#---------------------------------------------------------------------------------
+postgres=# SELECT COUNT(c)
+postgres-# FROM R
+postgres-# WHERE b <> 0;
+ count
+-------
+     2
+(1 row)
+
+# See having the GROUP BY clause actually counts the row one by one... 
+postgres=# SELECT COUNT(c)
+postgres-# FROM R
+postgres-# WHERE b <> 0
+postgres-# GROUP BY a;
+ count
+-------
+     1
+     1
+(2 rows)

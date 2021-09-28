@@ -1,24 +1,18 @@
+#---------------------------------------------------------------------------------
 This demo just creates a table with 2 column and then deletes it. 
 Note that all command must be terminated with a ;
 #---------------------------------------------------------------------------------
-Server [localhost]:
-Database [postgres]:
-Port [5432]:
-Username [postgres]:
-Password for user postgres:
-psql (13.3)
-WARNING: Console code page (437) differs from Windows code page (1252)
-         8-bit characters might not work correctly. See psql reference
-         page "Notes for Windows users" for details.
-Type "help" for help.
-
 postgres=# CREATE TABLE test(
 postgres(# a INT PRIMARY KEY,
 postgres(# b INT
 postgres(# );
 CREATE TABLE
+
+
 postgres=# INSERT INTO test VALUES (1,1), (2,1), (3,3), (4,3);
 INSERT 0 4
+
+
 postgres=# SELECT * FROM test;
  a | b
 ---+---
@@ -27,6 +21,7 @@ postgres=# SELECT * FROM test;
  3 | 3
  4 | 3
 (4 rows)
+
+
 postgres=# DROP TABLE test;
 DROP TABLE
-postgres=#
