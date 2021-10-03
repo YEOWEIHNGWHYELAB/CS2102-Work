@@ -81,8 +81,8 @@ CREATE VIEW qn8 (uname, area) AS (
 			FROM Offices O
 			WHERE O.uname <> W.uname
 				AND W.area = O.area
+		)
 	)
-)
 
 	SELECT M.uname, O1.area
 	FROM HasNoManager M NATURAL JOIN Offices O1
