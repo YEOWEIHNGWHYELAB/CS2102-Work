@@ -1,0 +1,20 @@
+1) In your psql shell, key in the following command
+#---------------------------------------------------------------------------------
+CREATE DATABASE cs2102_midterm;
+#---------------------------------------------------------------------------------
+2) Ensure that psql is added to your Environment PATH variable frist, then run
+the following command in your CMD, then CD to the directory which contains the 
+cs2102.sql dump file and then run the following command. You should see the 
+TABLE start creating and ALTER... The username by default in sql is postgres...
+#---------------------------------------------------------------------------------
+psql -U postgres -d cs2102_midterm -f cs2102.sql
+#---------------------------------------------------------------------------------
+3) Now in your psql shell, run the following command, and then you should see that
+you will connect to cs2102_midterm database. 
+#---------------------------------------------------------------------------------
+\c cs2102_midterm
+#---------------------------------------------------------------------------------
+4) Running this command should return a count of 255.
+#---------------------------------------------------------------------------------
+SELECT COUNT(*) FROM countries;
+#---------------------------------------------------------------------------------
