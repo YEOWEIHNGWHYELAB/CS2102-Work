@@ -1,0 +1,13 @@
+CREATE TABLE bar (
+	a INTEGER,
+	b INTEGER 
+);
+
+CREATE TABLE foo (
+	f INTEGER,
+	a INTEGER 
+);
+
+INSERT INTO bar VALUES (1, 10), (2, 20), (3, 30), (4, 40);
+
+INSERT INTO foo VALUES (100, 2), (200, 7), (300, 3), (400, 2);

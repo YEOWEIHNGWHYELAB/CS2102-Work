@@ -1,0 +1,123 @@
+#---------------------------------------------------------------------------------
+Creating and checking the tables. 
+#---------------------------------------------------------------------------------
+postgres=# CREATE TABLE bar (
+postgres(# a INTEGER,
+postgres(# b INTEGER
+postgres(# );
+CREATE TABLE
+
+
+postgres=# CREATE TABLE foo (
+postgres(# f INTEGER,
+postgres(# a INTEGER
+postgres(# );
+CREATE TABLE
+
+
+postgres=# INSERT INTO bar VALUES (1, 10), (2, 20), (3, 30), (4, 40);
+INSERT 0 4
+
+
+postgres=# INSERT INTO foo VALUES (100, 2), (200, 7), (300, 3), (400, 2);
+INSERT 0 4
+
+
+postgres=# SELECT *
+postgres-# FROM bar;
+ a | b
+---+----
+ 1 | 10
+ 2 | 20
+ 3 | 30
+ 4 | 40
+(4 rows)
+
+
+postgres=# SELECT *
+postgres-# FROM foo;
+  f  | a
+-----+---
+ 100 | 2
+ 200 | 7
+ 300 | 3
+ 400 | 2
+(4 rows)
+
+
+#---------------------------------------------------------------------------------
+Executing the Query of a-e.
+#---------------------------------------------------------------------------------
+postgres=# SELECT *
+postgres-# FROM bar b
+postgres-# WHERE EXISTS (
+postgres(# SELECT 1
+postgres(# FROM foo f
+postgres(# WHERE f.f > 100
+postgres(# AND f.a = b.a
+postgres(# );
+ a | b
+---+----
+ 2 | 20
+ 3 | 30
+(2 rows)
+
+
+postgres=# SELECT *
+postgres-# FROM bar b
+postgres-# WHERE EXISTS (
+postgres(# SELECT 1
+postgres(# FROM foo f
+postgres(# WHERE f.f > 100
+postgres(# )
+postgres-# AND f.a = b.a;
+ERROR:  missing FROM-clause entry for table "f"
+LINE 8: AND f.a = b.a;
+            ^
+			
+			
+postgres=# SELECT *
+postgres-# FROM bar b
+postgres-# WHERE EXISTS (
+postgres(# SELECT 1
+postgres(# FROM foo f
+postgres(# WHERE f.f > 100
+postgres(# AND a = b.a
+postgres(# );
+ a | b
+---+----
+ 2 | 20
+ 3 | 30
+(2 rows)
+
+
+postgres=# SELECT *
+postgres-# FROM bar b
+postgres-# WHERE EXISTS (
+postgres(# SELECT 1
+postgres(# FROM foo f
+postgres(# WHERE f.f > 100
+postgres(# AND a = a
+postgres(# );
+ a | b
+---+----
+ 1 | 10
+ 2 | 20
+ 3 | 30
+ 4 | 40
+(4 rows)
+
+
+postgres=# SELECT *
+postgres-# FROM bar b
+postgres-# WHERE EXISTS (
+postgres(# SELECT 1
+postgres(# FROM foo f
+postgres(# WHERE f.f > 100
+postgres(# AND f.a = b.a
+postgres(# AND b > 20
+postgres(# );
+ a | b
+---+----
+ 3 | 30
+(1 row)
