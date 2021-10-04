@@ -2,7 +2,7 @@
 CREATE VIEW qn1 (uname) AS (
 	SELECT DISTINCT uname
 	FROM Customers
-	WHERE uname = 'A____%' -- Use Pattern Matching
+	WHERE uname LIKE 'A____%' -- Use Pattern Matching
 );
 
 /*	Q2	*/
