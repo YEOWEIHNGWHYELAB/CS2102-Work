@@ -43,7 +43,7 @@ CREATE VIEW qn5 (p1uname, p2uname) AS (
 
 /*	Q6	*/
 CREATE VIEW qn6 (uname, num) AS (
-	SELECT w1.uname, COUNT(DISTINCT(w1.uname, w2.uname)) - 1
+	SELECT w1.uname, COUNT(DISTINCT(w1.uname, w2.uname)) - 1 -- W1.uname can be removed since the group is done by w1.uname already.
 	FROM Work w1, Work w2
 	WHERE w1.area = w2.area
 	GROUP BY w1.uname -- Since GROUP BY is partitioning, it automatically GROUP uname that are same...
