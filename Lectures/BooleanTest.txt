@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS
+	BenjaBarbieTest CASCADE;
+
+CREATE TABLE BenjaBarbieTest(
+	x INT,
+	y INT,
+	isTrue BOOLEAN,
+	PRIMARY KEY(x, y)
+);
+
+-- Testing for (x, y, x=y) 
+INSERT INTO BenjaBarbieTest VALUES (1,1, 1=1), (2,1, 2=1);
+
+SELECT *
+FROM BenjaBarbieTest;
